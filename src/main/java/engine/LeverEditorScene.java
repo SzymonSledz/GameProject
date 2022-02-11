@@ -3,6 +3,7 @@ package engine;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
+import util.Time;
 
 import java.awt.event.KeyEvent;
 import java.nio.FloatBuffer;
@@ -105,9 +106,13 @@ public class LeverEditorScene extends Scene {
 
         System.out.println("" + (1.0f/dt) + "FPS");
 
+        camera.position.x -= dt * 50f;
+        camera.position.y -= dt * 20f;
+
         defaultShader.use();
         defaultShader.uploadMat4f("uProjection", camera.getProjectionMatrix());
         defaultShader.uploadMat4f("uView", camera.getViewMatrix());
+        defaultShader.uploadFloat("uTime", Time.getTime());
 
         //Bind using VAO
         glBindVertexArray(vaoID);
