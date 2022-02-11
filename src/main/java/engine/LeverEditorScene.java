@@ -1,5 +1,6 @@
 package engine;
 
+import components.SpriteRenderer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
@@ -37,12 +38,21 @@ public class LeverEditorScene extends Scene {
     private Shader defaultShader;
     private Texture testTexture;
 
+    GameObject testOBJ;
+
     public LeverEditorScene() {
 
     }
 
     @Override
     public void init() {
+        System.out.println("Creating testOBJ");
+
+        this.testOBJ = new GameObject("test object");
+        this.testOBJ.addComponent(new SpriteRenderer());
+        this.addObjectToScene(this.testOBJ);
+
+
         this.camera = new Camera(new Vector2f(-200, -300));
         defaultShader = new Shader("assets/shaders/default.glsl");
 
@@ -121,6 +131,10 @@ public class LeverEditorScene extends Scene {
         glBindVertexArray(0);
 
         defaultShader.detach();
+
+        for (GameObject go : this.gameObjects) {
+            go.update(dt);
+        }
     }
 
 }
