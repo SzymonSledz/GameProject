@@ -35,7 +35,7 @@ public class Window {
     public static void changeScene(int newScene) {
         switch (newScene) {
             case 0:
-                currentScene = new LeverEditorScene();
+                currentScene = new LevelEditorScene();
                 currentScene.init();
                 currentScene.start();
                 break;
@@ -55,6 +55,10 @@ public class Window {
             Window.window = new Window();
         }
         return Window.window;
+    }
+
+    public static Scene getScene() {
+        return get().currentScene;
     }
 
     public void run() {
