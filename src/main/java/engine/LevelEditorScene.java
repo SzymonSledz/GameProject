@@ -1,6 +1,8 @@
 package engine;
 
+import components.Sprite;
 import components.SpriteRenderer;
+import components.SpriteSheet;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import org.lwjgl.system.CallbackI;
@@ -14,23 +16,27 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
+        loadResources();
         this.camera = new Camera(new Vector2f());
 
+        SpriteSheet sprites = AssetPool.getSpriteSheet("assets/images/sprite_sheet.png");
+
         GameObject ob1 = new GameObject("Object1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        ob1.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/test.png")));
+        ob1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addObjectToScene(ob1);
 
         GameObject ob2 = new GameObject("Object2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
-        ob2.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/test1.jpg")));
+        ob2.addComponent(new SpriteRenderer(sprites.getSprite(1)));
         this.addObjectToScene(ob2);
 
-        loadResources();
+
 
     }
 
     private void loadResources() {
         AssetPool.getShader("assets/shaders/default.glsl");
 
+        AssetPool.addSpriteSheet("assets/images/sprite_sheet.png", new SpriteSheet(AssetPool.getTexture("assets/images/sprite_sheet.png"), 32,32,4, 0));
     }
 
     @Override
