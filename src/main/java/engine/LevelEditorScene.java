@@ -3,6 +3,7 @@ package engine;
 import components.Sprite;
 import components.SpriteRenderer;
 import components.SpriteSheet;
+import imgui.ImGui;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import org.lwjgl.system.CallbackI;
@@ -46,7 +47,7 @@ public class LevelEditorScene extends Scene {
 
         ob1.transform.position.x += 1;
 
-        System.out.println("" + (1.0f/dt) + "FPS");
+//        System.out.println("" + (1.0f/dt) + "FPS");
 
 //        camera.position.x -= dt * 50f;
 //        camera.position.y -= dt * 20f;
@@ -57,6 +58,13 @@ public class LevelEditorScene extends Scene {
 
         this.renderer.render();
 
+    }
+
+    @Override
+    public void imgui() {
+        ImGui.begin("test window");
+        ImGui.text("Some random text");
+        ImGui.end();
     }
 
 }

@@ -142,7 +142,7 @@ public class Window {
                 currentScene.update(dt);
             }
 
-            this.imGuiLayer.update(dt);
+            this.imGuiLayer.update(dt, currentScene);
             glfwSwapBuffers(glfwWindow);
 
             endTime = (float) glfwGetTime();
@@ -160,6 +160,6 @@ public class Window {
         get().width = newWidth;
     }
     public static void setHeight(int newHeight) {
-        get().width = newHeight;
+        get().height = newHeight;
     }
 }

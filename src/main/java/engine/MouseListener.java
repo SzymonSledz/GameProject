@@ -4,7 +4,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 public class MouseListener {
-    private static MouseListener instane;
+    private static MouseListener instance;
     private double scrollX, scrollY;
     private double xPos, yPos, lastY, lastX;
     private boolean mouseButtonPressed[] = new boolean[3];
@@ -20,10 +20,10 @@ public class MouseListener {
     }
 
     public static MouseListener get() {
-        if (MouseListener.instane == null) {
-            MouseListener.instane = new MouseListener();
+        if (MouseListener.instance == null) {
+            MouseListener.instance = new MouseListener();
         }
-        return MouseListener.instane;
+        return MouseListener.instance;
     }
 
     public static void mousePosCallback(long window, double xpos, double ypos) {
