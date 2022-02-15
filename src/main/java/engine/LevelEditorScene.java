@@ -10,7 +10,7 @@ import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
 
-    private GameObject ob1 = new GameObject("Object1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+    private GameObject ob1 = new GameObject("Object1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)), -1);
 
 
     public LevelEditorScene() {
@@ -27,7 +27,7 @@ public class LevelEditorScene extends Scene {
         ob1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addObjectToScene(ob1);
 
-        GameObject ob2 = new GameObject("Object2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
+        GameObject ob2 = new GameObject("Object2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), -2);
         ob2.addComponent(new SpriteRenderer(sprites.getSprite(1)));
         this.addObjectToScene(ob2);
 

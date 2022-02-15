@@ -4,6 +4,8 @@ import components.SpriteRenderer;
 import engine.GameObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Renderer {
@@ -27,7 +29,7 @@ public class Renderer {
         boolean added = false;
 
         for (RenderBatch batch : batches) {
-            if (batch.hasRoom()) {
+            if (batch.hasRoom() && batch.getzIndex() == sprite.gameObject.getzIndex()) {
                 Texture texture = sprite.getTexture();
                 if (texture == null || (batch.hasTexture(texture) || batch.hasTextureRoom())){
                     batch.addSprite(sprite);
@@ -38,10 +40,11 @@ public class Renderer {
         }
 
         if (!added) {
-            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
+            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE, sprite.gameObject.getzIndex());
             newBatch.start();
             batches.add(newBatch);
             newBatch.addSprite(sprite);
+            Collections.sort(batches);
         }
     }
 
