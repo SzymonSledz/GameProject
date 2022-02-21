@@ -1,5 +1,7 @@
 package engine;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import components.Sprite;
 import components.SpriteRenderer;
 import components.SpriteSheet;
@@ -24,16 +26,23 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera(new Vector2f());
 
         SpriteSheet sprites = AssetPool.getSpriteSheet("assets/images/sprite_sheet.png");
-
-        ob1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
+        SpriteRenderer ob1Sprite = new SpriteRenderer();
+        ob1Sprite.setColor(new Vector4f(1, 0, 0, 1));
+        ob1.addComponent(ob1Sprite);
         this.addObjectToScene(ob1);
 
         GameObject ob2 = new GameObject("Object2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), -2);
-        ob2.addComponent(new SpriteRenderer(sprites.getSprite(1)));
+        SpriteRenderer ob2SpriteRenderer = new SpriteRenderer();
+        Sprite ob2Sprite = new Sprite();
+        ob2Sprite.setTexture(AssetPool.getTexture("assets/images/test.png"));
+        ob2SpriteRenderer.setSprite(ob2Sprite);
+        ob2.addComponent(ob2SpriteRenderer);
         this.addObjectToScene(ob2);
 
-
-
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        System.out.println(gson.toJson(ob1Sprite));
     }
 
     private void loadResources() {
