@@ -1,7 +1,12 @@
-package engine;
+package scenes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import components.Component;
+import components.ComponentDeserializer;
+import engine.Camera;
+import engine.GameObject;
+import engine.GameObjectDeserializer;
 import imgui.ImGui;
 import renderer.Renderer;
 
@@ -15,7 +20,7 @@ import java.util.List;
 public abstract class Scene {
 
     protected Renderer renderer = new Renderer();
-    protected Camera camera;
+    public Camera camera;
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
     protected GameObject activeGameObject = null;

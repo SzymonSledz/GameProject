@@ -1,9 +1,7 @@
 package components;
 
-import engine.Component;
 import engine.Transform;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
 import renderer.Texture;
 
