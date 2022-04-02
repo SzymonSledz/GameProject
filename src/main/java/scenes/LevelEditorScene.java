@@ -7,7 +7,9 @@ import engine.*;
 import imgui.ImGui;
 import imgui.ImVec2;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
+import renderer.DebugDraw;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
@@ -27,6 +29,7 @@ public class LevelEditorScene extends Scene {
         loadResources();
         this.camera = new Camera(new Vector2f());
         sprites = AssetPool.getSpriteSheet("assets/images/sprite_sheet.png");
+        DebugDraw.addLine2D(new Vector2f(600, 400), new Vector2f(0, 0), new Vector3f(0, 0, 1));
         if (loadedLevel) {
             this.activeGameObject = gameObjects.get(0);
             return;
@@ -69,6 +72,7 @@ public class LevelEditorScene extends Scene {
     public void update(float dt) {
 
         mouseControls.update(dt);
+
 
         ob1.transform.position.x += 1;
 
