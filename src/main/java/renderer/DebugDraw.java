@@ -88,8 +88,8 @@ public class DebugDraw {
 
         //Use shader
         shader.use();
-        shader.uploadMat4f("uProjection", Window.getScene().camera.getProjectionMatrix());
-        shader.uploadMat4f("uView", Window.getScene().camera.getViewMatrix());
+        shader.uploadMat4f("uProjection", Window.getScene().camera().getProjectionMatrix());
+        shader.uploadMat4f("uView", Window.getScene().camera().getViewMatrix());
 
         //Bind the vao
         glBindVertexArray(vaoID);
@@ -112,12 +112,12 @@ public class DebugDraw {
     //Add line2D methods
     public static void addLine2D(Vector2f from, Vector2f to) {
         //TODO add constants for common colors
-        addLine2D(from, to, new Vector3f(0, 1, 0), 120);
+        addLine2D(from, to, new Vector3f(0, 1, 0), 1);
     }
 
     public static void addLine2D(Vector2f from, Vector2f to, Vector3f color) {
         //TODO add constants for common colors
-        addLine2D(from, to, color, 120);
+        addLine2D(from, to, color, 1);
     }
 
     public static void addLine2D(Vector2f from, Vector2f to, Vector3f color, int lifetime) {

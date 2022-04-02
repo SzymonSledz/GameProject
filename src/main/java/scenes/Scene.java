@@ -20,40 +20,39 @@ import java.util.List;
 public abstract class Scene {
 
     protected Renderer renderer = new Renderer();
-    public Camera camera;
+    protected Camera camera;
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
     protected GameObject activeGameObject = null;
-    protected boolean loadedLevel = false;
+    protected boolean levelLoaded = false;
 
     public Scene() {
 
     }
 
-    public void init(){
+    public void init() {
 
     }
 
     public void start() {
-            for (GameObject go : gameObjects) {
-                go.start();
-                this.renderer.add(go);
-            }
-            isRunning = true;
+        for (GameObject go : gameObjects) {
+            go.start();
+            this.renderer.add(go);
+        }
+        isRunning = true;
     }
 
-    public void addObjectToScene(GameObject go) {
+    public void addGameObjectToScene(GameObject go) {
         if (!isRunning) {
             gameObjects.add(go);
-        }
-        else {
+        } else {
             gameObjects.add(go);
             go.start();
             this.renderer.add(go);
         }
     }
 
-    public abstract void update(float dt) ;
+    public abstract void update(float dt);
 
     public Camera camera() {
         return this.camera;
@@ -65,8 +64,10 @@ public abstract class Scene {
             activeGameObject.imgui();
             ImGui.end();
         }
+
         imgui();
     }
+
     public void imgui() {
 
     }
@@ -77,12 +78,12 @@ public abstract class Scene {
                 .registerTypeAdapter(Component.class, new ComponentDeserializer())
                 .registerTypeAdapter(GameObject.class, new GameObjectDeserializer())
                 .create();
+
         try {
             FileWriter writer = new FileWriter("level.txt");
             writer.write(gson.toJson(this.gameObjects));
             writer.close();
-        }
-        catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
@@ -93,34 +94,36 @@ public abstract class Scene {
                 .registerTypeAdapter(Component.class, new ComponentDeserializer())
                 .registerTypeAdapter(GameObject.class, new GameObjectDeserializer())
                 .create();
-        String infile = "";
+
+        String inFile = "";
         try {
-            infile = new String(Files.readAllBytes(Paths.get("level.txt")));
+            inFile = new String(Files.readAllBytes(Paths.get("level.txt")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (!infile.equals("")) {
+
+        if (!inFile.equals("")) {
             int maxGoId = -1;
             int maxCompId = -1;
-            GameObject[] objs = gson.fromJson(infile, GameObject[].class);
-            for (int i = 0; i < objs.length; i++) {
-                addObjectToScene(objs[i]);
+            GameObject[] objs = gson.fromJson(inFile, GameObject[].class);
+            for (int i=0; i < objs.length; i++) {
+                addGameObjectToScene(objs[i]);
 
                 for (Component c : objs[i].getAllComponents()) {
                     if (c.getUid() > maxCompId) {
                         maxCompId = c.getUid();
                     }
                 }
-                if (objs[i].getUid() > maxCompId) {
-                    maxCompId = objs[i].getUid();
+                if (objs[i].getUid() > maxGoId) {
+                    maxGoId = objs[i].getUid();
                 }
-
             }
+
             maxGoId++;
             maxCompId++;
-            GameObject.init(maxCompId);
+            GameObject.init(maxGoId);
             Component.init(maxCompId);
-            this.loadedLevel = true;
+            this.levelLoaded = true;
         }
     }
 }
