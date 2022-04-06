@@ -59,17 +59,21 @@ public class LevelEditorScene extends Scene {
     private void loadResources() {
         AssetPool.getShader("assets/shaders/default.glsl");
 
-        // TODO: FIX TEXTURE SAVE SYSTEM TO USE PATH INSTEAD OF ID
         AssetPool.addSpriteSheet("assets/images/sprite_sheet.png",
                 new SpriteSheet(AssetPool.getTexture("assets/images/sprite_sheet.png"),
                         32, 32, 16, 0));
-        AssetPool.getTexture("assets/images/sprite_sheet.png");
+//        AssetPool.getTexture("assets/images/sprite_sheet.png");
     }
+
+    float x = 0.0f;
+    float y = 0.0f;
 
     @Override
     public void update(float dt) {
         levelEditorStuff.update(dt);
-
+        DebugDraw.addCircle2D(new Vector2f(x, y), 64, new Vector3f(0, 1, 0), 2);
+        x += 50f * dt;
+        y += 50f * dt;
         for (GameObject go : this.gameObjects) {
             go.update(dt);
         }
