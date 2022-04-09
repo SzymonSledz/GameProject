@@ -12,14 +12,14 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
-project.ext.lwjglVersion = "3.2.3"
+project.ext.lwjglVersion = "3.3.1"
 project.ext.jomlVersion = "1.10.3"
 project.ext.lwjglNatives = "natives-windows"
-project.ext.imguiVersion = '1.76-0.9'
+project.ext.imguiVersion = '1.86.4'
 
 repositories {
     mavenCentral()
@@ -29,15 +29,27 @@ dependencies {
     //GSON
     implementation 'com.google.code.gson:gson:2.9.0'
 
-    //Im GUI stuff
-    implementation "io.imgui.java:binding:$imguiVersion"
-    implementation "io.imgui.java:lwjgl3:$imguiVersion"
+//    //Im GUI stuff
+//    implementation "io.imgui.java:binding:$imguiVersion"
+//    implementation "io.imgui.java:lwjgl3:$imguiVersion"
+//
+//    // Include all available natives, but it's likely that you want something specific
+//    runtimeOnly "io.imgui.java:natives-windows:$imguiVersion"
+//    runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
+//    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
+//    runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
 
-    // Include all available natives, but it's likely that you want something specific
-    runtimeOnly "io.imgui.java:natives-windows:$imguiVersion"
-    runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
-    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
-    runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    ['', '-opengl', '-glfw'].each {
+        implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
+        implementation "org.lwjgl:lwjgl$it::natives-windows"
+    }
+
+    implementation "io.github.spair:imgui-java-binding:$imguiVersion"
+    implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
+
+    implementation "io.github.spair:imgui-java-natives-windows:$imguiVersion"
 
     //LWJGL stuff
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")

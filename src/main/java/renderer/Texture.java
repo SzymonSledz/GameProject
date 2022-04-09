@@ -13,7 +13,7 @@ import static org.lwjgl.stb.STBImage.*;
 public class Texture {
 
     private String filepath;
-    private int texID;
+    private transient int texID;
     private int width, height;
 
     public Texture() {
@@ -25,7 +25,6 @@ public class Texture {
     public Texture(int width, int height) {
         this.width = width;
         this.height = height;
-        this.filepath = getFilepath();
 
         this.filepath = "Generated";
 
